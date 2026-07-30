@@ -1,0 +1,97 @@
+SOQL_Practice.txt
+
+Project: Hotel Room Booking System
+
+------------------------------------------------------------------------
+
+Query 1: WHERE Clause
+
+Purpose: Retrieve all available rooms.
+
+    SELECT Name, Room_Type__c, Price_Per_Night__c, Status__c
+    FROM Room__c
+    WHERE Status__c = 'Available'
+
+Sample Output:
+
+  Name   Room Type     Price Per Night Status
+  ------ ----------- ----------------- -----------
+  101    Standard                 2000 Available
+  102    Deluxe                   3500 Available
+  201    Suite                    6000 Available
+
+------------------------------------------------------------------------
+
+Query 2: ORDER BY + LIMIT
+
+    SELECT Name, Room_Type__c, Price_Per_Night__c
+    FROM Room__c
+    ORDER BY Price_Per_Night__c DESC
+    LIMIT 2
+
+Sample Output:
+
+  Name   Room Type     Price Per Night
+  ------ ----------- -----------------
+  201    Suite                    6000
+  102    Deluxe                   3500
+
+------------------------------------------------------------------------
+
+Query 3: Relationship Query
+
+    SELECT Name,
+           Guest__r.Name,
+           Room__r.Name,
+           Booking_Status__c
+    FROM Booking__c
+
+Sample Output:
+
+  Booking Number   Guest          Room   Booking Status
+  ---------------- -------------- ------ ----------------
+  BK-0001          Rahul Sharma   101    Reserved
+
+------------------------------------------------------------------------
+
+Query 4: Aggregate Query
+
+    SELECT Booking_Status__c,
+           COUNT(Id)
+    FROM Booking__c
+    GROUP BY Booking_Status__c
+
+Sample Output:
+
+  Booking Status     Total Bookings
+  ---------------- ----------------
+  Reserved                        1
+
+------------------------------------------------------------------------
+
+Query 5: Comparison Operator (>=)
+
+    SELECT Name,
+           Check_In_Date__c,
+           Guest__r.Name
+    FROM Booking__c
+    WHERE Check_In_Date__c >= TODAY
+
+Sample Output:
+
+  Booking Number   Check-In Date   Guest
+  ---------------- --------------- --------------
+  BK-0001          28/07/2026      Rahul Sharma
+
+------------------------------------------------------------------------
+
+Summary
+
+-   Total Queries Executed: 5
+-   Objects Used: Room__c, Guest__c, Booking__c
+-   Query Types Covered:
+    -   WHERE Clause
+    -   ORDER BY + LIMIT
+    -   Relationship Query
+    -   Aggregate Query
+    -   Comparison Operator
